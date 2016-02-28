@@ -1,19 +1,20 @@
 <?php
 
-use app\modules\rbac\rules\UserSuperAdminRule;
+use artkost\Module;
+use artkost\rbac\rules\UserSuperAdminRule;
 
 return [
     'permissions' => [
-        'adminAssignmentView' => 'View Assignment in Admin Panel',
-        'adminAssignmentCreate' => 'Create Assignment in Admin Panel',
-        'adminAssignmentUpdate' => 'Update Assignment in Admin Panel',
-        'adminAssignmentDelete' => 'Delete Assignment in Admin Panel'
+        'adminAssignmentView' => Module::t('rules', 'View Assignment'),
+        'adminAssignmentCreate' => Module::t('rules', 'Create Assignment'),
+        'adminAssignmentUpdate' => Module::t('rules', 'Update Assignment'),
+        'adminAssignmentDelete' => Module::t('rules', 'Delete Assignment')
     ],
     'roles' => [
-        'superAdmin' => 'Super Administrator',
-        'guest' => 'Guest',
-        'adminAssignmentReader' => 'Read Assignments',
-        'adminAssignmentManager' => 'Manage Assignments',
+        'superAdmin' => Module::t('rules', 'Super Administrator'),
+        'guest' => Module::t('rules', 'Guest'),
+        'adminAssignmentReader' => Module::t('rules', 'Read Assignments'),
+        'adminAssignmentManager' => Module::t('rules', 'Manage Assignments'),
     ],
     'assignments' => [
         'adminAssignmentReader' => ['adminAssignmentView'],
@@ -23,5 +24,8 @@ return [
             'adminAssignmentUpdate',
             'adminAssignmentDelete'
         ],
+    ],
+    'rules' => [
+        'superAdmin' => new UserSuperAdminRule(['role' => 'superAdmin'])
     ]
 ];

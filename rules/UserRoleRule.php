@@ -1,5 +1,5 @@
 <?php
-namespace app\modules\rbac\rules;
+namespace artkost\rbac\rules;
 
 use Yii;
 use yii\rbac\Rule;

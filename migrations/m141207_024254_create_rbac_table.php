@@ -95,6 +95,5 @@ class m141207_024254_create_rbac_table extends \yii\db\Migration
         $this->dropTable($this->itemChildTable);
         $this->dropTable($this->itemTable);
         $this->dropTable($this->ruleTable);
-        $this->dropTable($this->roleTable);
     }
 }

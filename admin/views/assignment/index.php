@@ -1,23 +1,24 @@
 <?php
 
 /**
- * Assignment list view.
+ * Roles list view.
  *
  * @var \yii\base\View $this View
  * @var \yii\data\ArrayDataProvider $provider Data provider
  */
 
 use app\modules\rbac\Module;
+
 use yii\grid\ActionColumn;
 use yii\grid\CheckboxColumn;
 use yii\helpers\Html;
 
-$this->title = Module::t('rbac', 'Assignment');
-$this->params['subtitle'] = Module::t('rbac', 'List');
+$this->title = Module::t('rbac', 'BACKEND_ROLES_INDEX_TITLE');
+$this->params['subtitle'] = Module::t('rbac', 'BACKEND_ROLES_INDEX_SUBTITLE');
 $this->params['breadcrumbs'] = [
     $this->title
 ];
-$gridId = 'assignment-grid';
+$gridId = 'roles-grid';
 $gridConfig = [
     'id' => $gridId,
     'dataProvider' => $provider,
@@ -42,14 +43,18 @@ $gridConfig = [
     ]
 ];
 
-$actions = [];
+$boxButtons = $actions = [];
 $showActions = false;
 
+if (Yii::$app->user->can('adminAssignmentCreate')) {
+    $boxButtons[] = '{create}';
+}
 if (Yii::$app->user->can('adminAssignmentUpdate')) {
     $actions[] = '{update}';
     $showActions = $showActions || true;
 }
 if (Yii::$app->user->can('adminAssignmentDelete')) {
+    $boxButtons[] = '{batch-delete}';
     $actions[] = '{delete}';
     $showActions = $showActions || true;
 }
@@ -61,16 +66,34 @@ if ($showActions === true) {
     ];
 }
 
+$boxButtons = !empty($boxButtons) ? implode(' ', $boxButtons) : null;
+
 ?>
 
 <div class="row">
     <div class="col-xs-12">
+        <?php Box::begin([
+            'title' => $this->params['subtitle'],
+            'bodyOptions' => [
+                'class' => 'table-responsive'
+            ],
+            'batchParam' => 'names',
+            'buttonsTemplate' => $boxButtons,
+            'grid' => $gridId,
+        ]); ?>
         <?= GridView::widget($gridConfig); ?>
+        <?php Box::end(); ?>
     </div>
 </div>
 
 <div class="row">
     <div class="col-xs-12">
+        <?php Box::begin([
+            'title' => 'Items',
+            'bodyOptions' => [
+                'class' => 'table-responsive'
+            ]
+        ]); ?>
         <div class="panel-group" id="roles" role="tablist" aria-multiselectable="true">
             <?php foreach ($rolesArray as $row): ?>
                 <div class="panel panel-default">
@@ -93,5 +116,6 @@ if ($showActions === true) {
                 </div>
             <?php endforeach; ?>
         </div>
+        <?php Box::end(); ?>
     </div>
 </div>

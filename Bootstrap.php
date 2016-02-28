@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\rbac;
+namespace artkost\rbac;
 
 use yii\base\BootstrapInterface;
 

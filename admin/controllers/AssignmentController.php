@@ -1,8 +1,8 @@
 <?php
 
-namespace app\modules\rbac\admin\controllers;
+namespace artkost\rbac\admin\controllers;
 
-use yii\base\Controller;
+use app\modules\admin\components\Controller;
 use app\modules\rbac\models\RbacAssignment;
 use app\modules\rbac\models\RbacAssignmentSearch;
 use app\modules\rbac\Module;
@@ -14,7 +14,7 @@ use yii\web\HttpException;
 use yii\web\Response;
 
 /**
- * Assignment controller.
+ * Roles controller.
  */
 class AssignmentController extends Controller
 {
@@ -63,7 +63,7 @@ class AssignmentController extends Controller
     }
 
     /**
-     * Assignment list page.
+     * Roles list page.
      */
     public function actionIndex()
     {
@@ -77,7 +77,7 @@ class AssignmentController extends Controller
     }
 
     /**
-     * Create assignment page.
+     * Create role page.
      */
     public function actionCreate()
     {
@@ -104,7 +104,7 @@ class AssignmentController extends Controller
     }
 
     /**
-     * Update assignment page.
+     * Update role page.
      *
      * @param string $name Role name
      *
@@ -123,7 +123,7 @@ class AssignmentController extends Controller
                 if ($model->update()) {
                     return $this->refresh();
                 } else {
-                    Yii::$app->session->setFlash('danger', Module::t('rbac', 'Failed update assigmenet'));
+                    Yii::$app->session->setFlash('danger', Module::t('rbac', 'BACKEND_ROLES_FLASH_FAIL_ADMIN_UPDATE'));
                 }
             } elseif (Yii::$app->request->isAjax) {
                 Yii::$app->response->format = Response::FORMAT_JSON;
@@ -140,7 +140,7 @@ class AssignmentController extends Controller
     }
 
     /**
-     * Delete assignment page.
+     * Delete role page.
      *
      * @param string $name Role name
      *
@@ -151,14 +151,14 @@ class AssignmentController extends Controller
         $model = $this->findAssignment($name);
 
         if (!Yii::$app->authManager->remove($model)) {
-            Yii::$app->session->setFlash('danger', Module::t('rbac', 'Failed delete assignment'));
+            Yii::$app->session->setFlash('danger', Module::t('rbac', 'BACKEND_ROLES_FLASH_FAIL_ADMIN_DELETE'));
         }
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Delete multiple assignments page.
+     * Delete multiple roles page.
      *
      * @return mixed
      * @throws \yii\web\HttpException 400 if request is invalid
@@ -173,7 +173,7 @@ class AssignmentController extends Controller
             }
             return $this->redirect(['index']);
         } else {
-            throw new BadRequestHttpException('Only POST is allowed');
+            throw new BadRequestHttpException('BACKEND_ROLES_ONLY_POST_IS_ALLOWED');
         }
     }
 
@@ -191,7 +191,7 @@ class AssignmentController extends Controller
         if (($model = RbacAssignment::find()->where(['item_name' => $name])->one() !== null)) {
             return $model;
         } else {
-            throw new HttpException(404, Module::t('rbac', 'Assignment not found'));
+            throw new HttpException(404, Module::t('rbac', 'BACKEND_ROLES_NOT_FOUND'));
         }
     }
 }

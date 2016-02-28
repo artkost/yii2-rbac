@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\rbac\components;
+namespace artkost\rbac\components;
 
 use Yii;
 use yii\helpers\ArrayHelper;

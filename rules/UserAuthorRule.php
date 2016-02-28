@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\rbac\rules;
+namespace artkost\rbac\rules;
 
 use yii\rbac\Rule;
 

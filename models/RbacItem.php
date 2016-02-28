@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\rbac\models;
+namespace artkost\rbac\models;
 
 use Yii;
 
